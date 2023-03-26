@@ -1,0 +1,41 @@
+name: TECHWEBPUC
+on:
+  workflow_dispatch:
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: 'techwebpuc.com'
+    needs: build
+    steps:
+      - name: Run a one-line script
+        run: echo deploy Dev
+
+  deploy-hmg:
+    runs-on: ubuntu-latest
+    environment:
+      name: hmg
+      url: 'techwebpuc.com'
+    needs: deploy-dev
+    steps:
+      - name: Run a one-line script
+        run: echo deploy HMG
+  
+  deploy-prd:
+    runs-on: ubuntu-latest
+    environment:
+      name: prd
+      url: 'techwebpuc.com'
+    needs: deploy-hmg
+    steps:
+      - name: Run a one-line script
+        run: echo deploy PRD
+  
