@@ -5,7 +5,7 @@ on:
 
 jobs: 
   analyze:
-    name: Analise
+    name: Analysis
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -45,6 +45,14 @@ jobs:
 
       - name: SAST Analysis
         uses: github/codeql-action/analyze@v2
+
+      - name: Telegram Notify
+        uses: appleboy/telegram-action@master
+        with: 
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            the ${{ github.evet_name}} event triggered this step.
       #- name: Setup Node.js environment
       #  uses: actions/setup-node@v2.2.0
       #  with:
