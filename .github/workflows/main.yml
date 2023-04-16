@@ -8,7 +8,7 @@ jobs:
     name: Analise
     runs-on: ubuntu-latest
     permissions:
-      action: read
+      actions: read
       contents: read
       security-events: write
     
