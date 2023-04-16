@@ -44,7 +44,7 @@ jobs:
     environment:
       name: dev
       url: 'techwebpuc.com'
-    needs: build
+    needs: analyze
     steps:
       - name: Run a one-line script
         run: echo deploy Dev
