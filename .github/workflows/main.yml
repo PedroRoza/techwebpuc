@@ -46,7 +46,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            the ${{ github.evet_name}} event, Analyzis have been done..
+            the Analyzis is done..
 
   Development:
     runs-on: ubuntu-latest
@@ -55,8 +55,35 @@ jobs:
       url: 'techwebpuc.com'
     needs: analyze
     steps:
-      - name: Run a one-line script
-        run: echo deploy Dev
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.2.0
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Initialize SAST
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+      
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: SAST Analysis
+        uses: github/codeql-action/analyze@v2
+
+      - name: Telegram Notify
+        uses: appleboy/telegram-action@master
+        with: 
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            the DEVELOPMENT deploy has done.
 
   staging:
     runs-on: ubuntu-latest
@@ -67,6 +94,13 @@ jobs:
     steps:
       - name: Run a one-line script
         run: echo deploy HMG
+        - name: Telegram Notify
+        uses: appleboy/telegram-action@master
+        with: 
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            the STAGING deploy has done.
   
   production:
     runs-on: ubuntu-latest
@@ -77,4 +111,12 @@ jobs:
     steps:
       - name: Run a one-line script
         run: echo deploy PRD
+
+      - name: Telegram Notify
+        uses: appleboy/telegram-action@master
+        with: 
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            the PRODUCTION deploy has done.
   
