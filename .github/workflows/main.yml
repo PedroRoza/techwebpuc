@@ -50,8 +50,8 @@ jobs:
           file: .
           push: true
           tags: |
-            pedroroza/pucweb:2023
-            Pedroroza/pucweb:latest
+            pucweb:2023
+            pucweb:latest
 
       - name: SAST Analysis
         uses: github/codeql-action/analyze@v2
