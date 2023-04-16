@@ -4,27 +4,40 @@ on:
     branches: [ main ]
 
 jobs: 
-  build:
+  analyze:
+    name: Analise
     runs-on: ubuntu-latest
+    permissions:
+      action: read
+      contents: read
+      security-events: write
+    
+    strategy:
+      fail-fast: false
+      matrix: 
+        language: [ 'javascript' ]
+
     steps:
-      - name: Checkout build
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.2.0
-        with:
-          node-version: ${{ matrix.node-version }}
-      
-      - name: Install dependencies
-        run: npm install
-
-      - name: Code analysis (SAST)
-        uses: action/checkout@v2
+      - name: Initialize SAST
         uses: github/codeql-action/init@v1
-        with: 
-          languages: [ 'javascript' ]
+        with:
+          languages: ${{ matrix.language }}
+      
+      - name: Autobuild
         uses: github/codeql-action/autobuild@v1
+
+      - name: SAST Analysis
         uses: github/codeql-action/analyze@v1
+      #- name: Setup Node.js environment
+      #  uses: actions/setup-node@v2.2.0
+      #  with:
+      #    node-version: ${{ matrix.node-version }}
+      
+      #- name: Install dependencies
+      #  run: npm install
 
   deploy-dev:
     runs-on: ubuntu-latest
