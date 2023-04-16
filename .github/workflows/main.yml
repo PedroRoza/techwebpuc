@@ -46,7 +46,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            the ${{ github.evet_name}} event, Analyzis have been done
+            the ${{ github.evet_name}} event, Analyzis have been done..
 
   Development:
     runs-on: ubuntu-latest
