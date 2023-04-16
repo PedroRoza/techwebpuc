@@ -18,8 +18,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Appjs
-        run: npm Appjs start
+      - name: Run code test
+        run: npx codeceptjs run
 
   deploy-dev:
     runs-on: ubuntu-latest
