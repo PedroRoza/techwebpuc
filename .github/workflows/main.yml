@@ -9,12 +9,15 @@ jobs:
     steps:
       - name: Checkout build
         uses: actions/checkout@v2
-        run: echo checkout pronto
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.2.0
         with:
           node-version: ${{ matrix.node-version }}
+      
+      - name: Install dependencies
+        run: npm install
+
       - name: Run Appjs
         run: npm Appjs start
 
