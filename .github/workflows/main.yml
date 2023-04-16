@@ -21,6 +21,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.2.0
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Docker
+        run: docker build -t pucweb:2023 .
+
+      - name: Run Docker
+        run: docker run -p 3000:3000 pucweb:2023
+
       - name: Initialize SAST
         uses: github/codeql-action/init@v2
         with:
@@ -39,7 +53,7 @@ jobs:
       #- name: Install dependencies
       #  run: npm install
 
-  deploy-dev:
+  Development:
     runs-on: ubuntu-latest
     environment:
       name: dev
@@ -49,22 +63,22 @@ jobs:
       - name: Run a one-line script
         run: echo deploy Dev
 
-  deploy-hmg:
+  staging:
     runs-on: ubuntu-latest
     environment:
       name: hmg
       url: 'techwebpuc.com'
-    needs: deploy-dev
+    needs: Development
     steps:
       - name: Run a one-line script
         run: echo deploy HMG
   
-  deploy-prd:
+  production:
     runs-on: ubuntu-latest
     environment:
       name: prd
       url: 'techwebpuc.com'
-    needs: deploy-hmg
+    needs: staging
     steps:
       - name: Run a one-line script
         run: echo deploy PRD
