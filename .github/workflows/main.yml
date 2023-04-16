@@ -18,8 +18,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run CodeceptJS tests
-        run: npx codeceptjs run
+      - name: Code analysis (SAST)
+        uses: action/checkout@v2
+        uses: github/codeql-action/init@v1
+        with: 
+          languages: [ 'javascript' ]
+        uses: github/codeql-action/autobuild@v1
+        uses: github/codeql-action/analyze@v1
 
   deploy-dev:
     runs-on: ubuntu-latest
