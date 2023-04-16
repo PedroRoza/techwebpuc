@@ -1,13 +1,22 @@
 name: TECHWEBPUC
 on:
-  workflow_dispatch:
+  push:
+    branches: [ main ]
 
 jobs: 
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Run a one-line script
-        run: echo funciona desgraca
+      - name: Checkout build
+        uses: actions/checkout@v2
+        run: echo checkout pronto
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.2.0
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Run Appjs
+        run: npm Appjs start
 
   deploy-dev:
     runs-on: ubuntu-latest
