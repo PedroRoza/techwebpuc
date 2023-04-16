@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run code test
+      - name: Run CodeceptJS tests
         run: npx codeceptjs run
 
   deploy-dev:
