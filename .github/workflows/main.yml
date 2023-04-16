@@ -94,7 +94,8 @@ jobs:
     steps:
       - name: Run a one-line script
         run: echo deploy HMG
-        - name: Telegram Notify
+
+      - name: Telegram Notify
         uses: appleboy/telegram-action@master
         with: 
           to: ${{ secrets.TELEGRAM_TO }}
