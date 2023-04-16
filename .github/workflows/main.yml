@@ -49,10 +49,9 @@ jobs:
           context: .
           file: .
           push: true
-          repository: pedroroza/pucweb
           tags: |
-            PedroRoza/pucweb:2023
-            PedroRoza/pucweb:latest
+            pedroroza/pucweb:2023
+            Pedroroza/pucweb:latest
 
       - name: SAST Analysis
         uses: github/codeql-action/analyze@v2
