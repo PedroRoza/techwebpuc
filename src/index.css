@@ -20,6 +20,20 @@ body {
   flex-direction: column;
   background-color: #1b1b20;
 }
+.geralCadastro{
+  display: flex;
+  justify-content: center;
+  height: 300px;
+  width: 500px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15%;
+  align-items: center;
+  flex-direction: column;
+  background-color: #1b1b20;
+}
 .divinput{
   margin-bottom: 10px;
 }
