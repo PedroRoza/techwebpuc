@@ -34,14 +34,20 @@ function Cadastro (){
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        firebase.firestore().collection('users').doc(user.uid).set({
-          nome: nome,
-          sobreNome: sobreNome,
-          data: data,
-          email: email
-        })
-        setUser(user);
-        setMsg('Cadastro realizado com sucesso!');
+        user.updateProfile({
+          displayName: nome + " " + sobreNome
+        }).then(() => {
+          // Update successful
+          firebase.firestore().collection('users').doc(user.uid).set({
+            data: data,
+            email: email
+          })
+          setUser(user);
+          setMsg('Cadastro realizado com sucesso!');
+        }).catch((error) => {
+          // An error occurred
+          setMsg(error.message);
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -49,6 +55,7 @@ function Cadastro (){
         setMsg(errorMessage);
       });
   };
+  
     return (
         <div className="geralCadastro">
         <h1>
@@ -60,6 +67,9 @@ function Cadastro (){
                onChange={handleName}/>
          <input className='inputLogin' type="text" placeholder='Sobrenome' value={sobreNome}
                onChange={handleLastName}/>
+        </div>
+        <div>
+          
         </div>
         <div style={{display: 'flex'}}>
             <div style={{display: 'flex', paddingTop: '8px', justifyContent: 'start', width: '290px', height: '30px', alignItems: 'center'}}>
