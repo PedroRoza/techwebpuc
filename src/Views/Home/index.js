@@ -29,17 +29,22 @@ function Home() {
       }
     });
     return unsubscribe;
+    
   }, []);
-
+  const aniversario = (aniver) => {
+    const [ano, mes, dia] = aniver.split("-")
+    return `${dia}/${mes}/${ano}`
+  }
   return (
-    <div className="geralCadastro">
+    <div className="geralHome">
         <h1>
          Dados de usuário
         </h1>
         <div className='divinput'>
-         <h1>Bem-vindo(a), {userData?.displayName}</h1>
+         <h1>Nome: {userData ? JSON.parse(userData.displayName).nome : ''}</h1>
         <div className='divinput'>
-            <p>Seu ID de usuário é: {userData?.uid}</p>
+            <p>Aniversário: {userData ? aniversario(JSON.parse(userData.displayName).birthDate) : ""}</p>
+            <p>ID: {userData?.uid}</p>
         </div>
         </div>
         <div style={{display: 'flex'}}>
