@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/firestore'; // importe o módulo firestore para acessar o banco de dados
+import 'firebase/firestore'; // importa o módulo firestore para acessar o banco de dados
 
 const auth = firebase.auth();
 const db = firebase.firestore(); // inicialize o módulo firestore

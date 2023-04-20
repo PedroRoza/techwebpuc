@@ -45,7 +45,7 @@ function Cadastro (){
           setUser(user);
           setMsg('Cadastro realizado com sucesso!');
         }).catch((error) => {
-          // An error occurred
+          // erro
           setMsg(error.message);
         });
       })
